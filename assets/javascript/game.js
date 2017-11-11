@@ -1,6 +1,5 @@
 var wins = 0;
 var wrongLetters = [];
-var correctLetters = [];
 var wordBank = ["austin", "longhorns", "football", "burntorange", "hookem"];
 var word = wordBank[Math.floor(Math.random() * wordBank.length)]
 var startValue = 0;
@@ -17,27 +16,44 @@ var game = function(){
 	
 	document.onkeyup = function(event){
 		console.log(word);
+		var startValue = 0;
 		var userGuess = event.key;
 		console.log(userGuess);
 		console.log(guesses);
 		if (word.indexOf(userGuess) > -1) {
-			arrayOfBlanks = arrayOfBlanks.replace(word.indexOf(userGuess), userGuess);
-			//document.getElementById("currentword").innerHTML = arrayOfBlanks.join(" ");
-			console.log('your letter is in place ', word.indexOf(userGuess));
-		} else {
+			while (word.indexOf(userGuess, startValue) !== -1) {
+  				arrayOfBlanks[word.indexOf(userGuess, startValue)] = userGuess;
+  				startValue = word.indexOf(userGuess, startValue) + 1;
+  				
+  				console.log(arrayOfBlanks);
+
+  				// replace letter
+  				//arrayOfBlanks.replaceAt=function(word.indexOf(userGuess), userGuess) {
+  				//	return this.substr(0, index + userGuess+ this.substr(index + replacement.length);)
+  				}
+  				document.getElementById("currentword").innerHTML = arrayOfBlanks.join(" ");
+  				// remove letter
+ 				// fill blanks
+			}
+
+		 	
+		 
+		
+			
+			//console.log('your letter is in place ', word.indexOf(userGuess));
+		else {
 			wrongLetters.push(userGuess);
 			guesses--;
 			document.getElementById("wrongGuesses").innerHTML = wrongLetters.join(", ");
 			document.getElementById("remaining").innerHTML = guesses
-		};
-
-		if (guesses < 0) {
-			game();
-
 		}
 
-		// while (word.indexOf(userGuess, startValue) !== -1) {
-		// 	startValue = word.indexOf(userGuess, startValue) + 1;
+		//if (guesses < 0) {
+		//	game();
+
+		//}
+
+		}
 
 			
 
@@ -46,7 +62,7 @@ var game = function(){
 		//array.push to guessed letters
 		
    }
-  }
+  
  
 
 game();
