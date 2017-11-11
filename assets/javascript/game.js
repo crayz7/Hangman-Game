@@ -1,14 +1,13 @@
 var wins = 0;
 var wrongLetters = [];
 var correctLetters = [];
-var wordBank = ["Austin", "Longhorns", "football", "burntorange", "Hookem"];
-var word;
+var wordBank = ["austin", "longhorns", "football", "burntorange", "hookem"];
+var word = wordBank[Math.floor(Math.random() * wordBank.length)]
 var startValue = 0;
 var guesses = 10;
 
 
 var game = function(){
-	word = wordBank[Math.floor(Math.random() * wordBank.length)];
 	var arrayWord = word.split("");
 	var arrayOfBlanks = arrayWord.map(function(a){
 	return "__";
@@ -17,25 +16,40 @@ var game = function(){
 	document.getElementById("currentword").innerHTML = arrayOfBlanks.join(" ");
 	
 	document.onkeyup = function(event){
+		console.log(word);
 		var userGuess = event.key;
+		console.log(userGuess);
+		console.log(guesses);
+		if (word.indexOf(userGuess) > -1) {
+			arrayOfBlanks = arrayOfBlanks.replace(word.indexOf(userGuess), userGuess);
+			//document.getElementById("currentword").innerHTML = arrayOfBlanks.join(" ");
+			console.log('your letter is in place ', word.indexOf(userGuess));
+		} else {
+			wrongLetters.push(userGuess);
+			guesses--;
+			document.getElementById("wrongGuesses").innerHTML = wrongLetters.join(", ");
+			document.getElementById("remaining").innerHTML = guesses
+		};
 
-		while (word.indexOf(userGuess, startValue) !== -1) {h
-			startValue = word.indexOf(userGuess, startValue) + 1;
+		if (guesses < 0) {
+			game();
 
-		if (startValue === 1) {
-  			// if userGuess matches a letter in word array, replace letter and minus 1 from guesses
-  			console.log(123);
 		}
-		else {
-			console.log(321);
+
+		// while (word.indexOf(userGuess, startValue) !== -1) {
+		// 	startValue = word.indexOf(userGuess, startValue) + 1;
+
+			
+
+	
+		//array.splice
+		//array.push to guessed letters
 		
-		}
-	}
+   }
+  }
+ 
 
-	}
-}
 game();
-
   
 
   // if guesses < 1 restart  game
